@@ -45,7 +45,7 @@ public class Dork {
     while (!input.equalsIgnoreCase("quit")) {
       input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
-        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, QUIT");
+        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, QUIT");
       } else if (input.equalsIgnoreCase("look")) {
         System.out.println(current.getCurrent().getDescription());
       } else if (input.equalsIgnoreCase("go north")) {
@@ -83,6 +83,11 @@ public class Dork {
         } else {
           System.out.println("There is no treasure!");
         }
+      } else if (input.equalsIgnoreCase("status")) {
+          System.out.println(p.status());
+      } else if (input.equalsIgnoreCase("quit")) {
+          System.out.println("Are you sure you would like to quit? Progress cannot be saved. Type 'quit' again to quit.");
+          input = s.next();
       } else {
         System.out.println("Unknown command.");
       }

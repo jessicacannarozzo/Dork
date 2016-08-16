@@ -48,4 +48,17 @@ public class Player {
   public void setTreasure(int t) {
     this.treasure += t;
   }
+
+  public String status() {
+    String status = "";
+      if (this.health >= 75) {
+        status += "You are in good health!\n";
+      } else if (this.health < 75 && this.health >= 25) {
+        status += "You are in OK health.\n";
+      } else {
+        status += "You are near death!\n";
+      }
+      status += "Treasure found: " + this.treasure + " gold";
+    return status;
+  }
 }

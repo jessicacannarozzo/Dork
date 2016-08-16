@@ -15,4 +15,16 @@ public class Room {
   //getters
   public Room getRoom(){ return this; }
   public String getDescription() { return description; }
+  public int getTreasure() { return treasure; }
+
+  public boolean hasTreasure() {
+    if (treasure > 0) {
+      return true;
+    } else return false;
+  }
+
+  public void takeTreasure(Player p) {
+    p.setTreasure(treasure);
+    treasure = 0;
+  }
 }

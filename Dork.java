@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class Dork {
-  //AVAILABLE COMMANDS: help, look, go north, go south, go west, go east, take
   String input = "";
   Node current;
   Scanner s = new Scanner(System.in);
@@ -9,22 +8,30 @@ public class Dork {
   public void formatRooms() {
     //starting room
     current = new Node(new Room("You arrive inside the mudroom of a large, haunted castle. There is a door to your west and a door north."));
-    current.setNorth(new Node(new Room("Room 2")));
+    current.setNorth(new Node(new Room("You are now in a large common room. There are doors all around you.")));
     current.getNorth().setSouth(current);
-    current.setWest(new Node(new Room("Room 3")));
+    current.setWest(new Node(new Room("You are in a kitchen. There is a door to your east.")));
     current.getWest().setEast(current);
 
     current = current.getNorth(); //change current
-    current.setNorth(new Node(new Room("Room 4")));
+    current.setNorth(new Node(new Room("The room is dark. You can see light coming from the door to your east.")));
     current.getNorth().setSouth(current);
-    current.setWest(new Node(new Room("Room 5")));
+    current.setWest(new Node(new Room("You are in a large dining room. There is plenty of food and you notice someone's left their wallet behind!", 50)));
     current.getWest().setEast(current);
-    current.setEast(new Node(new Room("Room 6")));
+    current.setEast(new Node(new Room("You are in a small library with old books. There is a door to the north.")));
+    Node temp = current.getEast();
     current.getEast().setWest(current);
 
-    current = current.getNorth();
-    current.setWest(new Node(new Room("Room 7")));
-    current.getWest().setEast(current);
+    current = current.getNorth(); //change current
+    current.setEast(new Node(new Room("You are in a small room with a rope ladder at the corner. There is also an exit to the south.")));
+    current.getEast().setWest(current);
+
+    current = current.getEast();
+    current.setSouth(temp);
+    current.getSouth().setNorth(current);
+
+    //reset current
+    current = current.getSouth().getWest().getSouth();
 
     System.out.println("Rooms formatted.");
   }
@@ -34,24 +41,50 @@ public class Dork {
     Player p = new Player(s.nextLine());
 
     System.out.println("Nice to meet you, " + p.getName() +". Type 'help' for available commands.\n");
-
+    System.out.println(current.getCurrent().getDescription());
     while (!input.equalsIgnoreCase("quit")) {
-
-
+      input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
-        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE");
+        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, QUIT");
       } else if (input.equalsIgnoreCase("look")) {
-        
+        System.out.println(current.getCurrent().getDescription());
       } else if (input.equalsIgnoreCase("go north")) {
-
+        if (current.getNorth() != null) {
+          current = current.getNorth();
+          System.out.println(current.getCurrent().getDescription());
+        } else {
+          System.out.println("There is no way to go north.");
+        }
       } else if (input.equalsIgnoreCase("go south")) {
-
+        if (current.getSouth() != null) {
+          current = current.getSouth();
+          System.out.println(current.getCurrent().getDescription());
+        } else {
+          System.out.println("There is no way to go south.");
+        }
       } else if (input.equalsIgnoreCase("go east")) {
-
+        if (current.getEast() != null) {
+          current = current.getEast();
+          System.out.println(current.getCurrent().getDescription());
+        } else {
+          System.out.println("There is no way to go east.");
+        }
       } else if (input.equalsIgnoreCase("go west")) {
-
+        if (current.getWest() != null) {
+          current = current.getWest();
+          System.out.println(current.getCurrent().getDescription());
+        } else {
+          System.out.println("There is no way to go west.");
+        }
       } else if (input.equalsIgnoreCase("take")) {
-
+        if (current.getCurrent().hasTreasure()) {
+        System.out.println("You received " + current.getCurrent().getTreasure() + " gold coins!");
+          current.getCurrent().takeTreasure(p);
+        } else {
+          System.out.println("There is no treasure!");
+        }
+      } else {
+        System.out.println("Unknown command.");
       }
     }
   }

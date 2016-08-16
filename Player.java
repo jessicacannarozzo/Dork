@@ -16,21 +16,21 @@ public class Player {
     this.name = name;
     this.health = health;
     this.treasure = treasure;
-    this.message = "";
+    this.message = "Hi, my name is " + this.name;
   }
 
   Player(String name, int health) {
     this.name = name;
     this.health = health;
     this.treasure = 0;
-    this.message = "";
+    this.message = "Hi, my name is " + this.name;
   }
 
   Player(String name) {
     this.name = name;
     this.health = 100;
     this.treasure = 0;
-    this.message = "";
+    this.message = "Hi, my name is " + this.name;
   }
 
   //getters
@@ -49,6 +49,7 @@ public class Player {
     this.treasure += t;
   }
 
+//displays player status
   public String status() {
     String status = "";
       if (this.health >= 75) {

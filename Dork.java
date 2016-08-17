@@ -45,12 +45,13 @@ public class Dork {
     while (!input.equalsIgnoreCase("quit")) {
       input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
-        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, QUIT");
+        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, FIGHT, QUIT");
       } else if (input.equalsIgnoreCase("look")) {
         System.out.println(current.getCurrent().getDescription());
       } else if (input.equalsIgnoreCase("go north")) {
         if (current.getNorth() != null) {
           current = current.getNorth();
+          current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
         } else {
           System.out.println("There is no way to go north.");
@@ -58,6 +59,7 @@ public class Dork {
       } else if (input.equalsIgnoreCase("go south")) {
         if (current.getSouth() != null) {
           current = current.getSouth();
+          current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
         } else {
           System.out.println("There is no way to go south.");
@@ -65,6 +67,7 @@ public class Dork {
       } else if (input.equalsIgnoreCase("go east")) {
         if (current.getEast() != null) {
           current = current.getEast();
+          current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
         } else {
           System.out.println("There is no way to go east.");
@@ -72,6 +75,7 @@ public class Dork {
       } else if (input.equalsIgnoreCase("go west")) {
         if (current.getWest() != null) {
           current = current.getWest();
+          current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
         } else {
           System.out.println("There is no way to go west.");

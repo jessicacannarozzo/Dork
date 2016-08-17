@@ -42,6 +42,7 @@ public class Dork {
 
     System.out.println("Nice to meet you, " + p.getName() +". Type 'help' for available commands.\n");
     System.out.println(current.getCurrent().getDescription());
+    current.getCurrent().playerEnters(p);
     while (!input.equalsIgnoreCase("quit")) {
       input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
@@ -50,6 +51,7 @@ public class Dork {
         System.out.println(current.getCurrent().getDescription());
       } else if (input.equalsIgnoreCase("go north")) {
         if (current.getNorth() != null) {
+          current.getCurrent().playerExits();
           current = current.getNorth();
           current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
@@ -58,6 +60,7 @@ public class Dork {
         }
       } else if (input.equalsIgnoreCase("go south")) {
         if (current.getSouth() != null) {
+          current.getCurrent().playerExits();
           current = current.getSouth();
           current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
@@ -66,6 +69,7 @@ public class Dork {
         }
       } else if (input.equalsIgnoreCase("go east")) {
         if (current.getEast() != null) {
+          current.getCurrent().playerExits();
           current = current.getEast();
           current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());
@@ -74,6 +78,7 @@ public class Dork {
         }
       } else if (input.equalsIgnoreCase("go west")) {
         if (current.getWest() != null) {
+          current.getCurrent().playerExits();
           current = current.getWest();
           current.getCurrent().playerEnters(p);
           System.out.println(current.getCurrent().getDescription());

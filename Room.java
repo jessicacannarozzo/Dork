@@ -1,27 +1,26 @@
+import java.util.LinkedList;
+import java.util.ArrayList;
+
 public class Room {
   public String description = "";
   private int treasure;
-  private Player[] players = new Player[5];
+  private LinkedList<Player> players = new LinkedList<Player>();
 
   public Room(String description) {
     this.description = description;
     treasure = 0;
   }
 
-  public Room(String description, Player[] a, int treasure) {
+  public Room(String description, ArrayList<Player> a, int treasure) {
     this.description = description;
     this.treasure = treasure;
-
-    //fill array of players currently in room
-    for (int i = 0; i < players.length; i++) {
-      players[i] = a[i];
-    }
+    this.players.addAll(a);
   }
 
   public Room(String description, Player a, int treasure) {
     this.description = description;
     this.treasure = treasure;
-    players[0] = a;
+    this.players.add(a);
   }
 
   public Room(String description, int treasure) {
@@ -36,19 +35,12 @@ public class Room {
 
   //add player to room
   public void playerEnters(Player p) {
-    int count = 0;
+    players.add(p);
+  }
 
-    while (players[count] != null) {
-      count++;
-    }
-
-    players[count] = p;
-
-
-    //REMOVEREMOVEREMOVE
-    for (int i = 0; i < players.length; i++) {
-      System.out.println(players[i]);
-    }
+  //remove player from room
+  public void playerExits() {
+    players.removeLast();
   }
 
   //determines if the room has treasure
@@ -60,12 +52,10 @@ public class Room {
 
 //determines if there is at least 1 human player in the room
   public boolean hasPlayer(Player p) {
-    for (int i = 0; i < players.length; i++) {
-      if (players[i] == p) {
-        return true;
-      }
+    if (players.indexOf(p) != -1) {
+      return true;
     }
-    return false;
+    else return false;
   }
 
 //allows player to take treasure if the above method returns true

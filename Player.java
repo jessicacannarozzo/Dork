@@ -1,8 +1,11 @@
+import java.util.LinkedList;
+
 public class Player {
   public String name;
   public String message;
   protected int health;
   protected int treasure;
+  protected LinkedList<String> items;
 
 //constructors
   Player(String name, int health, int treasure, String message) {
@@ -61,5 +64,16 @@ public class Player {
       }
       status += "Treasure found: " + this.treasure + " gold";
     return status;
+  }
+
+//take items
+  public void takeItem(String i) {
+    items.add(i);
+    System.out.println(i + " was successfully added to your collection.");
+  }
+
+//view player's items
+  public String viewItems() {
+    return items.toString();
   }
 }

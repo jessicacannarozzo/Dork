@@ -25,5 +25,5 @@ public class Node {
   public void setSouth(Node n) { this.south = n; }
   public void setEast(Node n) { this.east = n; }
   public void setWest(Node n) { this.west = n; }
-  
+
 }

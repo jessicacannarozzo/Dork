@@ -1,0 +1,10 @@
+##############################
+### Jess's .gitingnore file. #
+##############################
+
+##############################
+# Java                       #
+# Common files generated when#
+# compiling Java code.       #
+##############################
+*.class

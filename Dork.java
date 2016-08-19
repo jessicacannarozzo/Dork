@@ -53,10 +53,10 @@ public class Dork {
     System.out.println("Nice to meet you, " + p.getName() +". Type 'help' for available commands.\n");
     System.out.println(current.getCurrent().getDescription());
     current.getCurrent().playerEnters(p);
-    while (true) {
+    while (p.getHealth() > 0) {
       input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
-        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, TALK, QUIT");
+        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, TALK, FIGHT, QUIT");
       } else if (input.equalsIgnoreCase("look")) {
         System.out.println(current.getCurrent().getDescription());
       } else if (input.equalsIgnoreCase("go north")) {
@@ -106,6 +106,19 @@ public class Dork {
           System.out.println(p.status());
       } else if (input.equalsIgnoreCase("talk")) {
           current.getCurrent().talk();
+      } else if (input.equalsIgnoreCase("fight")) {
+        System.out.println("Who would you like to fight with?");
+        input = s.nextLine();
+
+        if (input.equalsIgnoreCase("me")) {
+          if (Math.random() > 0.5) {
+            System.out.println("Suicide is never the answer.");
+          } else {
+            System.out.println("Ha-ha, very funny.");
+          }
+        } else {
+          current.getCurrent().fight(p, input);
+        }
       } else if (input.equalsIgnoreCase("quit")) {
           if (this.quit()) {
             break;
@@ -114,6 +127,12 @@ public class Dork {
         System.out.println("Unknown command.");
       }
     }
+
+      if (p.getHealth() < 1) {
+        System.out.println("You died!");
+      } else {
+        System.out.println("Quitters never prosper...");
+      }
   }
 
   public static void main(String[] args) {

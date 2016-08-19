@@ -63,4 +63,14 @@ public class Room {
     p.setTreasure(treasure);
     treasure = 0;
   }
+
+//allow ncps to TALK
+  public void talk() {
+    for (int i = 0; i < players.size(); i++) {
+      if (!players.get(i).isHuman()) {
+        System.out.println(players.get(i).getName() + " says: '" + players.get(i).getMessage() + "''");
+      }
+    }
+
+  }
 }

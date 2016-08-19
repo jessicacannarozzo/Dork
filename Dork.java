@@ -1,15 +1,25 @@
 import java.util.Scanner;
 
 public class Dork {
-  String input = "";
-  Node current;
+  public String input = "";
+  public Node current;
   Scanner s = new Scanner(System.in);
+
+  public boolean quit() {
+    System.out.println("Are you sure you would like to quit? Type 'Y' for yes, 'N' for no.");
+
+    if (s.nextLine().equalsIgnoreCase("y")) {
+      return true;
+    }
+    else return false;
+  }
 
   public void formatRooms() {
     //starting room
     current = new Node(new Room("You arrive inside the mudroom of a large, haunted castle. There is a door to your west and a door north."));
-    current.setNorth(new Node(new Room("You are now in a large common room. There are doors all around you.")));
+    current.setNorth(new Node(new Room("You are now in a large common room. There are doors all around you. You see a man standing in the middle of the room, looking confused.")));
     current.getNorth().setSouth(current);
+    current.getNorth().getCurrent().playerEnters(new Player("Bob", false, "What do you call a fake noodle? An impasta!!!!")); //populate with NPC
     current.setWest(new Node(new Room("You are in a kitchen. There is a door to your east.")));
     current.getWest().setEast(current);
 
@@ -33,20 +43,20 @@ public class Dork {
     //reset current
     current = current.getSouth().getWest().getSouth();
 
-    System.out.println("Rooms formatted.");
+    System.out.println("Map formatted.");
   }
 
   public void play() {
     System.out.println("\nWelcome to Dorkopeia, the land of the Dorks. What is your name?");
-    Player p = new Player(s.nextLine());
+    Player p = new Player(s.nextLine(), true);
 
     System.out.println("Nice to meet you, " + p.getName() +". Type 'help' for available commands.\n");
     System.out.println(current.getCurrent().getDescription());
     current.getCurrent().playerEnters(p);
-    while (!input.equalsIgnoreCase("quit")) {
+    while (true) {
       input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
-        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, FIGHT, QUIT");
+        System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, TALK, QUIT");
       } else if (input.equalsIgnoreCase("look")) {
         System.out.println(current.getCurrent().getDescription());
       } else if (input.equalsIgnoreCase("go north")) {
@@ -94,9 +104,12 @@ public class Dork {
         }
       } else if (input.equalsIgnoreCase("status")) {
           System.out.println(p.status());
+      } else if (input.equalsIgnoreCase("talk")) {
+          current.getCurrent().talk();
       } else if (input.equalsIgnoreCase("quit")) {
-          System.out.println("Are you sure you would like to quit? Progress cannot be saved. Type 'quit' again to quit.");
-          input = s.next();
+          if (this.quit()) {
+            break;
+          } 
       } else {
         System.out.println("Unknown command.");
       }

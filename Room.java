@@ -64,7 +64,7 @@ public class Room {
     treasure = 0;
   }
 
-//allow ncps to TALK
+//allow ncps to TALK. also I don't know how to use Github
   public void talk() {
     for (int i = 0; i < players.size(); i++) {
       if (!players.get(i).isHuman()) {

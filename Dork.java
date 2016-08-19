@@ -1,9 +1,16 @@
 import java.util.Scanner;
 
 public class Dork {
-  String input = "";
-  Node current;
-  Scanner s = new Scanner(System.in);
+  public String input = "";
+  public Node current;
+  private Scanner s = new Scanner(System.in);
+
+  public boolean quit() {
+    System.out.println("Are you sure you would like to quit? Type 'y' for yes, 'n' for no.");
+      if (s.nextLine().equalsIgnoreCase("y")) {
+        return true;
+      } else return false;
+    }
 
   public void formatRooms() {
     //starting room
@@ -33,7 +40,7 @@ public class Dork {
     //reset current
     current = current.getSouth().getWest().getSouth();
 
-    System.out.println("Rooms formatted.");
+    System.out.println("Map formatted.");
   }
 
   public void play() {
@@ -42,7 +49,7 @@ public class Dork {
 
     System.out.println("Nice to meet you, " + p.getName() +". Type 'help' for available commands.\n");
     System.out.println(current.getCurrent().getDescription());
-    while (!input.equalsIgnoreCase("quit")) {
+    while (true) {
       input = s.nextLine();
       if (input.equalsIgnoreCase("help")) {
         System.out.println("Available commands: HELP, LOOK, GO NORTH, GO SOUTH, GO WEST, GO EAST, TAKE, STATUS, FIGHT, QUIT");
@@ -90,8 +97,9 @@ public class Dork {
       } else if (input.equalsIgnoreCase("status")) {
           System.out.println(p.status());
       } else if (input.equalsIgnoreCase("quit")) {
-          System.out.println("Are you sure you would like to quit? Progress cannot be saved. Type 'quit' again to quit.");
-          input = s.next();
+          if (this.quit()) {
+            break;
+          }
       } else {
         System.out.println("Unknown command.");
       }

@@ -5,34 +5,46 @@ import java.util.Scanner;
 public class Room {
   public String description = "";
   private int treasure;
+  private int food;
   private LinkedList<Player> players = new LinkedList<Player>();
 
   public Room(String description) {
     this.description = description;
-    treasure = 0;
+    this.treasure = 0;
+    this.food = 0;
   }
 
   public Room(String description, ArrayList<Player> a, int treasure) {
     this.description = description;
     this.treasure = treasure;
     this.players.addAll(a);
+    this.food = 0;
   }
 
   public Room(String description, Player a, int treasure) {
     this.description = description;
     this.treasure = treasure;
     this.players.add(a);
+    this.food = 0;
   }
 
   public Room(String description, int treasure) {
     this.description = description;
     this.treasure = treasure;
+    this.food = 0;
+  }
+
+  public Room(String description, int treasure, int f) {
+    this.description = description;
+    this.treasure = treasure;
+    this.food = f;
   }
 
   //getters
   public Room getRoom(){ return this; }
   public String getDescription() { return description; }
   public int getTreasure() { return treasure; }
+  public int getFood() { return food; }
 
   //add player to room
   public void playerEnters(Player p) {
@@ -51,6 +63,13 @@ public class Room {
     } else return false;
   }
 
+//determines if the room has food
+  public boolean hasFood() {
+    if (food > 0) {
+      return true;
+    } else return false;
+  }
+
 //determines if there is at least 1 human player in the room
   public boolean hasPlayer(Player p) {
     if (players.indexOf(p) != -1) {
@@ -59,11 +78,17 @@ public class Room {
     else return false;
   }
 
-//allows player to take treasure if the above method returns true
+//allows player to take treasure
   public void takeTreasure(Player p) {
     p.setTreasure(treasure);
     treasure = 0;
   }
+
+//allows player to take food
+    public void takeFood(Player p) {
+      p.setHealth(food);
+      food = 0;
+    }
 
 //allow ncps to TALK.
   public void talk() {
@@ -71,7 +96,7 @@ public class Room {
       if (!players.get(i).isHuman()) {
         System.out.println(players.get(i).getName() + " says: '" + players.get(i).getMessage() + "''");
       } else if (players.size() <= 1){
-        System.out.println("There is no one around to talk.");
+        System.out.println("I don't think you've reach that level of insanity yet. There's no one around.");
       }
     }
   }

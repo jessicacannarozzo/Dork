@@ -26,7 +26,7 @@ public class Dork {
     current = current.getNorth(); //change current
     current.setNorth(new Node(new Room("The room is dark. You can see light coming from the door to your east.")));
     current.getNorth().setSouth(current);
-    current.setWest(new Node(new Room("You are in a large dining room. There is plenty of food and you notice someone's left their wallet behind!", 50)));
+    current.setWest(new Node(new Room("You are in a large dining room. There is plenty of food and you notice someone's left their wallet behind!", 50, 30)));
     current.getWest().setEast(current);
     current.setEast(new Node(new Room("You are in a small library with old books. There is a door to the north.")));
     Node temp = current.getEast();
@@ -101,6 +101,12 @@ public class Dork {
           current.getCurrent().takeTreasure(p);
         } else {
           System.out.println("There is no treasure!");
+        }
+        if (current.getCurrent().hasFood()) {
+        System.out.println("You restored " + current.getCurrent().getFood() + " health!");
+            current.getCurrent().takeFood(p);
+        } else {
+          System.out.println("There is no food!");
         }
       } else if (input.equalsIgnoreCase("status")) {
           System.out.println(p.status());

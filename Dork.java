@@ -109,7 +109,7 @@ public class Dork {
       } else if (input.equalsIgnoreCase("quit")) {
           if (this.quit()) {
             break;
-          } 
+          }
       } else {
         System.out.println("Unknown command.");
       }

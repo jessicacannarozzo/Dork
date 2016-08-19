@@ -45,7 +45,7 @@ public class Dork {
 
   public void play() {
     System.out.println("\nWelcome to Dorkopeia, the land of the Dorks. What is your name?");
-    Player p = new Player(s.nextLine());
+    Player p = new Player(s.nextLine(), true);
 
     System.out.println("Nice to meet you, " + p.getName() +". Type 'help' for available commands.\n");
     System.out.println(current.getCurrent().getDescription());

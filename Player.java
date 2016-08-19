@@ -1,36 +1,49 @@
 public class Player {
-  public String name;
-  public String message;
-  protected int health;
-  protected int treasure;
+  private String name;
+  private String message;
+  private int health;
+  private int treasure;
+  private boolean isHuman;
 
 //constructors
-  Player(String name, int health, int treasure, String message) {
+  Player(String name, int health, int treasure, String message, boolean h) {
     this.name = name;
     this.health = health;
     this.treasure = treasure;
     this.message = message;
+    this.isHuman = h;
   }
 
-  Player(String name, int health, int treasure) {
+  Player(String name, int health, int treasure, boolean h) {
     this.name = name;
     this.health = health;
     this.treasure = treasure;
     this.message = "Hi, my name is " + this.name;
+    this.isHuman = h;
   }
 
-  Player(String name, int health) {
+  Player(String name, int health, boolean h) {
     this.name = name;
     this.health = health;
     this.treasure = 0;
     this.message = "Hi, my name is " + this.name;
+    this.isHuman = h;
   }
 
-  Player(String name) {
+  Player(String name, boolean h, String m) {
+    this.name = name;
+    this.health = 100;
+    this.treasure = 0;
+    this.message = m;
+    this.isHuman = h;
+  }
+
+  Player(String name, boolean h) {
     this.name = name;
     this.health = 100;
     this.treasure = 0;
     this.message = "Hi, my name is " + this.name;
+    this.isHuman = h;
   }
 
   //getters
@@ -38,6 +51,7 @@ public class Player {
   public int getHealth(){return health;}
   public int getTreasure(){return treasure;}
   public String getMessage(){return message;}
+  public boolean isHuman(){if (isHuman) return true; else return false;}
 
 //set health, enter a neg value to lower health
   public void setHealth(int h) {
